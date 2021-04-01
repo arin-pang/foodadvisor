@@ -1,0 +1,17 @@
+{
+	"appId": "com.ondotsystems.com.demo.foodadvisor",
+	"appName": "food-advisor",
+	"bundledWebRuntime": false,
+	"npmClient": "yarn",
+	"webDir": "www",
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 0
+		},
+		"CodePush": {
+			"ANDROID_DEPLOY_KEY": "N7A1-U3-wlDcPfQKsBZZmnN6rwASCXN5sNxgF",
+			"SERVER_URL": "https://codepush.appcenter.ms/"
+		}
+	},
+	"cordova": {}
+}
