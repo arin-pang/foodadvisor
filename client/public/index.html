@@ -2,6 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src * 'self' data: gap: cdvfile: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline' https: http: wss: ws:; style-src 'self' 'unsafe-inline'; img-src * filesystem: cdvfile: data:; media-src * blob:">-->
+    <!-- <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * data: blob: 'unsafe-inline' 'unsafe-eval'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';"
+    /> -->
+    <meta http-equiv="Content-Security-Policy" content="default-src https://codepush.appcenter.ms 'self' data: gap: cdvfile: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline' https: http: wss: ws:; style-src 'self' 'unsafe-inline'; img-src * filesystem: cdvfile: data:; media-src * blob:">
+    
+    <!-- <meta 
+      http-equiv="Content-Security-Policy" 
+      content="default-src https://codepush.appcenter.ms 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *" 
+    /> -->
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta
       name="viewport"
