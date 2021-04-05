@@ -1,0 +1,29 @@
+{
+  "name": "git-controller",
+  "version": "0.1.0",
+  "description": "Git Controller for Strapi",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@git.internal.ondotsystems.com:7999/~seonguk.cho/foodadvisor.git"
+  },
+  "author": "SeongUk Cho",
+  "license": "ISC",
+  "dependencies": {
+    "@isomorphic-git/cors-proxy": "^2.7.0",
+    "express": "^4.17.1",
+    "fs-extra": "^9.1.0",
+    "globby": "^11.0.3",
+    "isomorphic-git": "^1.8.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.11",
+    "@types/fs-extra": "^9.0.10",
+    "@types/globby": "^9.1.0",
+    "@types/node": "^14.14.37"
+  }
+}
