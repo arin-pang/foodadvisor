@@ -15,7 +15,7 @@ const app: express.Application = express();
 
 
 
-app.get(
+app.post(
   "/test-hook",
   async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 
