@@ -10917,10 +10917,9 @@ strapi-utils@3.5.1:
     pluralize "^8.0.0"
     yup "0.29.3"
 
-strapi@3.5.1:
+strapi@arin-pang/strapi-only:
   version "3.5.1"
-  resolved "https://registry.yarnpkg.com/strapi/-/strapi-3.5.1.tgz#4fb1596551729fcd32c9d5686740cc653e951c84"
-  integrity sha512-4HdUjwevCkiDZ+jmPNW9oTgL/tAFU5LfSyHItFaQ3WaoZ4j8ue+OmmDL+1As7P4384MXJSl95rlJhgBC0tvfww==
+  resolved "https://codeload.github.com/arin-pang/strapi-only/tar.gz/ea72f0ce7b79e86168b477ae20c132b9f0e315b8"
   dependencies:
     "@koa/cors" "^3.0.0"
     async "^2.1.2"
