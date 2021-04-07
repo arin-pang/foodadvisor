@@ -102,10 +102,10 @@ app.post(
         fs,
         dir,
         author: {
-          name: 'Git-Controller',
-          email: 'seonguk.cho@ondotsystems.com',
+          name: req.body.commit.author,
+          email: req.body.commit.email,
         },
-        message: '[Automation] Changed from Strapi Admin UI'
+        message: req.body.commit.message
       });
       console.log(sha)
 
@@ -114,14 +114,15 @@ app.post(
         fs,
         http,
         dir,
-        remote: 'ondot-http',
-        ref: 'push-test',
-        onAuth: () => ({ username: 'seonguk.cho', password: 'Test@123$' }),
+        remote: req.body.local.remote,
+        ref: req.body.local.ref,
+        onAuth: () => ({ username: req.body.auth.username, password: req.body.auth.password }),
       })
       console.log(pushResult);
 
     } catch (e) {
       console.error(e);
+      res.status(400).send("Error occured");
     }
     res.send("hello typescript express!");
   }
