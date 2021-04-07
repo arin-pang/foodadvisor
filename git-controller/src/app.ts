@@ -4,11 +4,12 @@ import http from 'isomorphic-git/http/node';
 import fs from 'fs-extra';
 // import globby from 'globby';
 import path from 'path';
+import bodyParser from 'body-parser';
 // import util from 'util';
 
 
 const app: express.Application = express();
-
+app.use(bodyParser.json());
 
 
 // commit & push  hook
@@ -16,7 +17,7 @@ const app: express.Application = express();
 
 
 app.post(
-  "/test-hook",
+  "/git-commit-push",
   async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 
     try{
