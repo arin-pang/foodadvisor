@@ -20,8 +20,9 @@ app.post(
   "/git-commit-push",
   async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 
+    console.log(req.body);
     try{
-      const dir = path.join('/usr/src/food-advisor');
+      const dir = path.join('/usr/src/git-food-advisor');
       // const gitdir = path.join(dir, '.git');
       // const apiDir = path.join(dir, 'api');
 
