@@ -6,7 +6,7 @@ WORKDIR /usr/src/food-advisor
 
 COPY .. .
 
-RUN cd api
+WORKDIR /usr/src/food-advisor/api
 
 RUN yarn install --frozen-lockfile
 
