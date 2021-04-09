@@ -6216,9 +6216,9 @@ is-docker@2.1.1:
   integrity sha512-ZOoqiXfEwtGknTiuDEy8pN2CfE3TxMHprvNer1mXiqwkOT77Rw3YVrUQ52EqAOU3QAWDQ+bQdx7HJzrv7LS2Hw==
 
 is-docker@^2.0.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/is-docker/-/is-docker-2.2.0.tgz#b037c8815281edaad6c2562648a5f5f18839d5f7"
-  integrity sha512-K4GwB4i/HzhAzwP/XSlspzRdFTI9N8OxJOyOU7Y5Rz+p+WBokXWVWblaJeBkggthmoSV0OoGTH5thJNvplpkvQ==
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/is-docker/-/is-docker-2.2.1.tgz#33eeabe23cfe86f14bde4408a02c0cfb853acdaa"
+  integrity sha512-F+i2BKsFrH66iaUFc0woD8sLy8getkwTwtOBjvs56Cx4CgJDeKQeqfz8wAYiSb8JOprWhHH5p77PbmYCvvUuXQ==
 
 is-extendable@^0.1.0, is-extendable@^0.1.1:
   version "0.1.1"
@@ -10878,9 +10878,10 @@ strapi-utils@3.5.1:
     pluralize "^8.0.0"
     yup "0.29.3"
 
-strapi@arin-pang/strapi-only:
+strapi@3.5.1:
   version "3.5.1"
-  resolved "https://codeload.github.com/arin-pang/strapi-only/tar.gz/064930b3993c0055bd4aca56f8a1b83ca43e0e47"
+  resolved "https://registry.yarnpkg.com/strapi/-/strapi-3.5.1.tgz#4fb1596551729fcd32c9d5686740cc653e951c84"
+  integrity sha512-4HdUjwevCkiDZ+jmPNW9oTgL/tAFU5LfSyHItFaQ3WaoZ4j8ue+OmmDL+1As7P4384MXJSl95rlJhgBC0tvfww==
   dependencies:
     "@koa/cors" "^3.0.0"
     async "^2.1.2"
