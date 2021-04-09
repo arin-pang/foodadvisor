@@ -21,7 +21,7 @@ app.post(
   async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 
     try{
-      const dir = path.join(__dirname, '..' ,'..');
+      const dir = path.join('/usr/src/food-advisor');
       // const gitdir = path.join(dir, '.git');
       // const apiDir = path.join(dir, 'api');
 
