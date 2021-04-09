@@ -14,6 +14,4 @@ RUN yarn build
 
 RUN yarn seed
 
-RUN yarn develop
-
 EXPOSE 1337
