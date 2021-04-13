@@ -228,23 +228,20 @@ const gitRun = async (body) => {
     console.log(branch);
 
     // Unstage all files
-    console.log(await git.statusMatrix({
+    const status = await git.statusMatrix({ 
       fs,
       dir,
-    }).then((status) =>
-      Promise.all(
-        status.forEach(async ([filepath, , worktreeStatus]) => {
-            console.log(filepath);
-            await git.resetIndex({ fs, dir, filepath });
+    });
+    
 
-            if(filepath.indexOf('api/') !== 0) return nullPromise;
-            worktreeStatus ? await git.add({ fs, dir, filepath }) : await git.remove({ fs, dir, filepath });
+    status.forEach(async ([filepath, , worktreeStatus]) => {
+        console.log(filepath);
+        await git.resetIndex({ fs, dir, filepath });
 
-            return nullPromise;
-          }
-        )
-      )
-    ));
+        if(filepath.indexOf('api/') !== 0) return nullPromise;
+        worktreeStatus ? await git.add({ fs, dir, filepath }) : await git.remove({ fs, dir, filepath });
+      }
+    )
 
 
     // console.log(await git.statusMatrix({
