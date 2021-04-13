@@ -157,7 +157,7 @@ function watchFileChanges({ dir, strapiInstance, watchIgnoreFiles, polling }) {
           username: process.env.CUSTOM_WEBHOOK_AUTH_USERNAME,
           password: process.env.CUSTOM_WEBHOOK_AUTH_PASSWORD,
         },
-      });
+      }, strapiInstance);
     }, 1000);
 
     return;
@@ -190,16 +190,19 @@ function watchFileChanges({ dir, strapiInstance, watchIgnoreFiles, polling }) {
   watcher
     .on('add', (path) => {
       strapiInstance.log.info(`File created: ${path}`);
+      strapiInstance.reload.isReloading = true;
           customWebhook();
       // restart();
     })
     .on('change', (path) => {
       strapiInstance.log.info(`File changed: ${path}`);
+      strapiInstance.reload.isReloading = true;
           customWebhook();
       // restart();
     })
     .on('unlink', (path) => {
       strapiInstance.log.info(`File deleted: ${path}`);
+      strapiInstance.reload.isReloading = true;
           customWebhook();
       // restart();
     });
@@ -207,7 +210,7 @@ function watchFileChanges({ dir, strapiInstance, watchIgnoreFiles, polling }) {
 
 
 
-const gitRun = async (body) => {
+const gitRun = async (body, strapiInstance) => {
   
   const nullPromise =  new Promise((resolve, reject) => {
     resolve(null);
@@ -281,9 +284,11 @@ const gitRun = async (body) => {
       onAuth: () => ({ username: body.auth.username, password: body.auth.password }),
     })
     console.log(pushResult);
+    strapiInstance.reload();
 
   } catch (e) {
     console.error(e);
+    strapiInstance.reload();
     return;
   }
 } 
