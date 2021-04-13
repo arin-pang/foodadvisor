@@ -233,7 +233,7 @@ const gitRun = async (body) => {
       dir,
     }).then((status) =>
       Promise.all(
-        status.map(async ([filepath, , worktreeStatus]) => {
+        status.forEach(async ([filepath, , worktreeStatus]) => {
             console.log(filepath);
             await git.resetIndex({ fs, dir, filepath });
 
@@ -247,18 +247,18 @@ const gitRun = async (body) => {
     ));
 
 
-    console.log(await git.statusMatrix({
-      fs,
-      dir,
-    }).then((status) =>
-      Promise.all(
-        status.map(async ([filepath, , worktreeStatus]) => {
-            console.log(filepath, worktreeStatus);
-            return nullPromise;
-          }
-        )
-      )
-    ));
+    // console.log(await git.statusMatrix({
+    //   fs,
+    //   dir,
+    // }).then((status) =>
+    //   Promise.all(
+    //     status.map(async ([filepath, , worktreeStatus]) => {
+    //         console.log(filepath, worktreeStatus);
+    //         return nullPromise;
+    //       }
+    //     )
+    //   )
+    // ));
      
  
     console.log(dir);
