@@ -190,23 +190,17 @@ function watchFileChanges({ dir, strapiInstance, watchIgnoreFiles, polling }) {
   watcher
     .on('add', (path) => {
       strapiInstance.log.info(`File created: ${path}`);
-      if (process.env.CUSTOM_WEBHOOK_URL) {
           customWebhook();
-      }
       // restart();
     })
     .on('change', (path) => {
       strapiInstance.log.info(`File changed: ${path}`);
-      if (process.env.CUSTOM_WEBHOOK_URL) {
           customWebhook();
-      }
       // restart();
     })
     .on('unlink', (path) => {
       strapiInstance.log.info(`File deleted: ${path}`);
-      if (process.env.CUSTOM_WEBHOOK_URL) {
           customWebhook();
-      }
       // restart();
     });
 }
@@ -237,12 +231,28 @@ const gitRun = async (body) => {
         status.map(([filepath, , worktreeStatus]) => {
             console.log(filepath);
             console.log(git.resetIndex({ fs, dir, filepath }));
-            if(filepath.indexOf('api/') !== 0) return null; 
+          }
+        )
+      )
+    ));
+
+
+    console.log(await git.statusMatrix({
+      fs,
+      dir,
+    }).then((status) =>
+      Promise.all(
+        status.map(([filepath, , worktreeStatus]) => {
+            console.log(filepath);
+            if(filepath.indexOf('api/') !== 0) return new Promise((resolve, reject) => {
+              resolve(null);
+            });
             return worktreeStatus ? git.add({ fs, dir, filepath }) : git.remove({ fs, dir, filepath });
           }
         )
       )
     ));
+     
 
     console.log(dir);
 
