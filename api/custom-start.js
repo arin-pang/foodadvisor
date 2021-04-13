@@ -274,9 +274,13 @@ const gitRun = async (body, strapiInstance) => {
       onAuth: () => ({ username: body.auth.username, password: body.auth.password }),
     });
     console.log(pushResult);
+    logger.info('The server is restarting\n');
+    worker.send('isKilled');
     process.exit(1);
   } catch (e) {
     console.error(e);
+    logger.info('The server is restarting\n');
+    worker.send('isKilled');
     process.exit(1);
     return;
   }
