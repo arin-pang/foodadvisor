@@ -16,7 +16,6 @@ const http = require('isomorphic-git/http/node');
 // const path = require('path');
 
 let webhookTimeout = null;
-let _worker;
 
 /**
  * `$ strapi develop`
@@ -54,7 +53,6 @@ const run = async function ({ build, watchAdmin, polling, browser }) {
       cluster.on('message', (worker, message) => {
         switch (message) {
           case 'reload':
-            _worker = worker;
             // logger.info('The server is restarting\n');
             // worker.send('isKilled');
             break;
@@ -277,18 +275,16 @@ const gitRun = async (body, strapiInstance) => {
     });
     console.log(pushResult);
     logger.info('The server is restarting\n');
-    _worker.send('isKilled');
     process.exit(1);
   } catch (e) {
     console.error(e);
     logger.info('The server is restarting\n');
-    _worker.send('isKilled');
     process.exit(1);
     return;
   }
 };
 
-// async () => {
+// async () => { 
 //   try{
 //     strapiInstance.log.info(`Custom webhook ready: ${process.env.CUSTOM_WEBHOOK_URL}`);
 //     await fetch(process.env.CUSTOM_WEBHOOK_URL, {

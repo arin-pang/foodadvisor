@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ohahahas",
+  "info": {
+    "name": "OHAHAHA"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "AAHH": {
+      "type": "string"
+    }
+  }
+}

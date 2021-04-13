@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "dfsdfsds",
+  "info": {
+    "name": "DFSDFSD"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "SDGSDG": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ohs",
+  "info": {
+    "name": "OH"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "aaa": {
+      "type": "string"
+    }
+  }
+}

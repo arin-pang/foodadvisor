@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/ananafdfs",
+      "handler": "ananafdf.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/ananafdfs/count",
+      "handler": "ananafdf.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/ananafdfs/:id",
+      "handler": "ananafdf.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/ananafdfs",
+      "handler": "ananafdf.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/ananafdfs/:id",
+      "handler": "ananafdf.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/ananafdfs/:id",
+      "handler": "ananafdf.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

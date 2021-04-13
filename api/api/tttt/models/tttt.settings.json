@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tttts",
+  "info": {
+    "name": "TTTT"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "hahaha": {
+      "type": "string"
+    }
+  }
+}
