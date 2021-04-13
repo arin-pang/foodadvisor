@@ -1,12 +1,10 @@
-ARG NODE_IMAGE=node:12
+ARG NODE_IMAGE=node:erbium-alpine
 
 FROM $NODE_IMAGE
 
-WORKDIR /usr/src/food-advisor
+WORKDIR /usr/src/food-advisor-api-only
 
-COPY .. .
-
-WORKDIR /usr/src/food-advisor/api
+COPY . .
 
 RUN yarn install --frozen-lockfile
 
