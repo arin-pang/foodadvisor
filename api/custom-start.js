@@ -11,7 +11,7 @@ const { logger, webhook } = require('strapi-utils');
 const strapi = require('strapi');
 
 
-const git = require = require('isomorphic-git');
+const git = require('isomorphic-git');
 const http = require('isomorphic-git/http/node');
 // import globby from 'globby';
 // const path = require('path');
