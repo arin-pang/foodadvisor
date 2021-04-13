@@ -1,4 +1,4 @@
-ARG NODE_IMAGE=node:erbium-alpine
+ARG NODE_IMAGE=node:12
 
 FROM $NODE_IMAGE
 
