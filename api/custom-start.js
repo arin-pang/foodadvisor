@@ -217,8 +217,8 @@ const gitRun = async (body) => {
   
     console.log(body);
   try{
-    const dir = path.join('/usr/src/git-food-advisor');
-
+    // const dir = path.join('/usr/src/git-food-advisor');
+    const dir = path.join(__dirname, '..');
 
     // Get the current branch name
     let branch = await git.currentBranch({
