@@ -230,7 +230,7 @@ const gitRun = async (body) => {
       Promise.all(
         status.map(([filepath, , worktreeStatus]) => {
             console.log(filepath);
-            console.log(git.resetIndex({ fs, dir, filepath }));
+            return git.resetIndex({ fs, dir, filepath });
           }
         )
       )
@@ -242,18 +242,22 @@ const gitRun = async (body) => {
       dir,
     }).then((status) =>
       Promise.all(
-        status.map(([filepath, , worktreeStatus]) => {
-            console.log(filepath);
-            if(filepath.indexOf('api/') !== 0) return new Promise((resolve, reject) => {
+        status.map(async ([filepath, , worktreeStatus]) => {
+            console.log(filepath, worktreeStatus);
+
+            const nullPromise =  new Promise((resolve, reject) => {
               resolve(null);
             });
-            return worktreeStatus ? git.add({ fs, dir, filepath }) : git.remove({ fs, dir, filepath });
+            if(filepath.indexOf('api/') !== 0) return nullPromise;
+            worktreeStatus ? await git.add({ fs, dir, filepath }) : await git.remove({ fs, dir, filepath });
+
+            return nullPromise;
           }
         )
       )
     ));
      
-
+ 
     console.log(dir);
 
     let sha = await git.commit({
