@@ -14,7 +14,7 @@ const strapi = require('strapi');
 const git = require = require('isomorphic-git');
 const http = require('isomorphic-git/http/node');
 // import globby from 'globby';
-const path = require('path');
+// const path = require('path');
 
 
 let webhookTimeout = null;
