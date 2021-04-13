@@ -10,7 +10,12 @@ const { logger, webhook } = require('strapi-utils');
 
 const strapi = require('strapi');
 
-const fetch = require('node-fetch');
+
+const git = require = require('isomorphic-git');
+const http = require('isomorphic-git/http/node');
+// import globby from 'globby';
+const path = require('path');
+
 
 let webhookTimeout = null;
 
@@ -138,31 +143,21 @@ function watchFileChanges({ dir, strapiInstance, watchIgnoreFiles, polling }) {
     }
 
     webhookTimeout = setTimeout(async () => {
-      try{
-        strapiInstance.log.info(`Custom webhook ready: ${process.env.CUSTOM_WEBHOOK_URL}`);
-        await fetch(process.env.CUSTOM_WEBHOOK_URL, {
-          method: 'POST',
-          body: JSON.stringify({
-            commit: {
-              author: process.env.CUSTOM_WEBHOOK_GIT_AUTHOR,
-              email: process.env.CUSTOM_WEBHOOK_GIT_EMAIL,
-              message: process.env.CUSTOM_WEBHOOK_GIT_MESSAGE,
-            },
-            local: {
-              remote: process.env.CUSTOM_WEBHOOK_REPO_REMOTE,
-              ref: process.env.CUSTOM_WEBHOOK_REPO_REF,
-            },
-            auth: {
-              username: process.env.CUSTOM_WEBHOOK_AUTH_USERNAME,
-              password: process.env.CUSTOM_WEBHOOK_AUTH_PASSWORD,
-            },
-          }),
-          headers: { 'Content-Type': 'application/json' },
-        });
-        strapiInstance.log.info(`Custom webhook complete: ${process.env.CUSTOM_WEBHOOK_URL}`);
-      } catch (e) {
-        console.error(e);
-      }
+      await gitRun({
+        commit: {
+          author: process.env.CUSTOM_WEBHOOK_GIT_AUTHOR,
+          email: process.env.CUSTOM_WEBHOOK_GIT_EMAIL,
+          message: process.env.CUSTOM_WEBHOOK_GIT_MESSAGE,
+        },
+        local: {
+          remote: process.env.CUSTOM_WEBHOOK_REPO_REMOTE,
+          ref: process.env.CUSTOM_WEBHOOK_REPO_REF,
+        },
+        auth: {
+          username: process.env.CUSTOM_WEBHOOK_AUTH_USERNAME,
+          password: process.env.CUSTOM_WEBHOOK_AUTH_PASSWORD,
+        },
+      });
     }, 1000);
 
     return;
@@ -215,3 +210,95 @@ function watchFileChanges({ dir, strapiInstance, watchIgnoreFiles, polling }) {
       // restart();
     });
 }
+
+
+
+const gitRun = async (body) => {
+  
+    console.log(body);
+  try{
+    const dir = path.join('/usr/src/git-food-advisor');
+
+
+    // Get the current branch name
+    let branch = await git.currentBranch({
+      fs,
+      dir,
+      fullname: true
+    })
+    console.log(branch);
+
+    // Unstage all files
+    console.log(await git.statusMatrix({
+      fs,
+      dir,
+    }).then((status) =>
+      Promise.all(
+        status.map(([filepath, , worktreeStatus]) => {
+            console.log(filepath);
+            console.log(git.resetIndex({ fs, dir, filepath }));
+            if(filepath.indexOf('api/') !== 0) return null; 
+            return worktreeStatus ? git.add({ fs, dir, filepath }) : git.remove({ fs, dir, filepath });
+          }
+        )
+      )
+    ));
+
+    console.log(dir);
+
+    let sha = await git.commit({
+      fs,
+      dir,
+      author: {
+        name: body.commit.author,
+        email: body.commit.email,
+      },
+      message: body.commit.message
+    });
+    console.log(sha)
+
+
+    let pushResult = await git.push({
+      fs,
+      http,
+      dir,
+      remote: body.local.remote,
+      ref: body.local.ref,
+      onAuth: () => ({ username: body.auth.username, password: body.auth.password }),
+    })
+    console.log(pushResult);
+
+  } catch (e) {
+    console.error(e);
+    return;
+  }
+} 
+
+
+// async () => {
+//   try{
+//     strapiInstance.log.info(`Custom webhook ready: ${process.env.CUSTOM_WEBHOOK_URL}`);
+//     await fetch(process.env.CUSTOM_WEBHOOK_URL, {
+//       method: 'POST',
+//       body: JSON.stringify({
+//         commit: {
+//           author: process.env.CUSTOM_WEBHOOK_GIT_AUTHOR,
+//           email: process.env.CUSTOM_WEBHOOK_GIT_EMAIL,
+//           message: process.env.CUSTOM_WEBHOOK_GIT_MESSAGE,
+//         },
+//         local: {
+//           remote: process.env.CUSTOM_WEBHOOK_REPO_REMOTE,
+//           ref: process.env.CUSTOM_WEBHOOK_REPO_REF,
+//         },
+//         auth: {
+//           username: process.env.CUSTOM_WEBHOOK_AUTH_USERNAME,
+//           password: process.env.CUSTOM_WEBHOOK_AUTH_PASSWORD,
+//         },
+//       }),
+//       headers: { 'Content-Type': 'application/json' },
+//     });
+//     strapiInstance.log.info(`Custom webhook complete: ${process.env.CUSTOM_WEBHOOK_URL}`);
+//   } catch (e) {
+//     console.error(e);
+//   }
+// }

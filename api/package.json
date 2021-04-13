@@ -37,7 +37,10 @@
     "strapi-plugin-upload": "3.5.1",
     "strapi-plugin-users-permissions": "3.5.1",
     "strapi-utils": "3.5.1",
-    "unzip-stream": "^0.3.0"
+    "unzip-stream": "^0.3.0",
+    "@isomorphic-git/cors-proxy": "^2.7.0",
+    "globby": "^11.0.3",
+    "isomorphic-git": "^1.8.1"
   },
   "strapi": {
     "uuid": "7b581c0d-89b7-479e-b379-a76ab90b8754"
