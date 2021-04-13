@@ -209,6 +209,11 @@ function watchFileChanges({ dir, strapiInstance, watchIgnoreFiles, polling }) {
 
 const gitRun = async (body) => {
   
+  const nullPromise =  new Promise((resolve, reject) => {
+    resolve(null);
+  });
+
+
     console.log(body);
   try{
     // const dir = path.join('/usr/src/git-food-advisor');
@@ -228,9 +233,14 @@ const gitRun = async (body) => {
       dir,
     }).then((status) =>
       Promise.all(
-        status.map(([filepath, , worktreeStatus]) => {
+        status.map(async ([filepath, , worktreeStatus]) => {
             console.log(filepath);
-            return git.resetIndex({ fs, dir, filepath });
+            await git.resetIndex({ fs, dir, filepath });
+
+            if(filepath.indexOf('api/') !== 0) return nullPromise;
+            worktreeStatus ? await git.add({ fs, dir, filepath }) : await git.remove({ fs, dir, filepath });
+
+            return nullPromise;
           }
         )
       )
@@ -244,13 +254,6 @@ const gitRun = async (body) => {
       Promise.all(
         status.map(async ([filepath, , worktreeStatus]) => {
             console.log(filepath, worktreeStatus);
-
-            const nullPromise =  new Promise((resolve, reject) => {
-              resolve(null);
-            });
-            if(filepath.indexOf('api/') !== 0) return nullPromise;
-            worktreeStatus ? await git.add({ fs, dir, filepath }) : await git.remove({ fs, dir, filepath });
-
             return nullPromise;
           }
         )
@@ -288,7 +291,7 @@ const gitRun = async (body) => {
   }
 } 
 
-
+ 
 // async () => {
 //   try{
 //     strapiInstance.log.info(`Custom webhook ready: ${process.env.CUSTOM_WEBHOOK_URL}`);
