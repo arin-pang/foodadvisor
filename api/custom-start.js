@@ -10,15 +10,12 @@ const { logger, webhook } = require('strapi-utils');
 
 const strapi = require('strapi');
 
-
 const git = require('isomorphic-git');
 const http = require('isomorphic-git/http/node');
 // import globby from 'globby';
 // const path = require('path');
 
-
 let webhookTimeout = null;
-
 
 /**
  * `$ strapi develop`
@@ -132,32 +129,32 @@ function watchFileChanges({ dir, strapiInstance, watchIgnoreFiles, polling }) {
   };
 
   const customWebhook = () => {
+    const customFetch = () => {};
 
-    const customFetch = () => {
-      
-    }
-
-    if (webhookTimeout){
+    if (webhookTimeout) {
       clearTimeout(webhookTimeout);
       webhookTimeout = null;
     }
 
     webhookTimeout = setTimeout(async () => {
-      await gitRun({
-        commit: {
-          author: process.env.CUSTOM_WEBHOOK_GIT_AUTHOR,
-          email: process.env.CUSTOM_WEBHOOK_GIT_EMAIL,
-          message: process.env.CUSTOM_WEBHOOK_GIT_MESSAGE,
+      await gitRun(
+        {
+          commit: {
+            author: process.env.CUSTOM_WEBHOOK_GIT_AUTHOR,
+            email: process.env.CUSTOM_WEBHOOK_GIT_EMAIL,
+            message: process.env.CUSTOM_WEBHOOK_GIT_MESSAGE,
+          },
+          local: {
+            remote: process.env.CUSTOM_WEBHOOK_REPO_REMOTE,
+            ref: process.env.CUSTOM_WEBHOOK_REPO_REF,
+          },
+          auth: {
+            username: process.env.CUSTOM_WEBHOOK_AUTH_USERNAME,
+            password: process.env.CUSTOM_WEBHOOK_AUTH_PASSWORD,
+          },
         },
-        local: {
-          remote: process.env.CUSTOM_WEBHOOK_REPO_REMOTE,
-          ref: process.env.CUSTOM_WEBHOOK_REPO_REF,
-        },
-        auth: {
-          username: process.env.CUSTOM_WEBHOOK_AUTH_USERNAME,
-          password: process.env.CUSTOM_WEBHOOK_AUTH_PASSWORD,
-        },
-      }, strapiInstance);
+        strapiInstance
+      );
     }, 1000);
 
     return;
@@ -191,34 +188,30 @@ function watchFileChanges({ dir, strapiInstance, watchIgnoreFiles, polling }) {
     .on('add', (path) => {
       strapiInstance.log.info(`File created: ${path}`);
       strapiInstance.reload.isReloading = true;
-          customWebhook();
+      customWebhook();
       // restart();
     })
     .on('change', (path) => {
       strapiInstance.log.info(`File changed: ${path}`);
       strapiInstance.reload.isReloading = true;
-          customWebhook();
+      customWebhook();
       // restart();
     })
     .on('unlink', (path) => {
       strapiInstance.log.info(`File deleted: ${path}`);
       strapiInstance.reload.isReloading = true;
-          customWebhook();
+      customWebhook();
       // restart();
     });
 }
 
-
-
 const gitRun = async (body, strapiInstance) => {
-  
-  const nullPromise =  new Promise((resolve, reject) => {
+  const nullPromise = new Promise((resolve, reject) => {
     resolve(null);
   });
 
-
-    console.log(body);
-  try{
+  console.log(body);
+  try {
     // const dir = path.join('/usr/src/git-food-advisor');
     const dir = path.join(__dirname, '..');
 
@@ -226,26 +219,25 @@ const gitRun = async (body, strapiInstance) => {
     let branch = await git.currentBranch({
       fs,
       dir,
-      fullname: true
-    })
+      fullname: true,
+    });
     console.log(branch);
 
     // Unstage all files
-    const status = await git.statusMatrix({ 
+    const status = await git.statusMatrix({
       fs,
       dir,
     });
-    
 
     status.forEach(async ([filepath, , worktreeStatus]) => {
-        console.log(filepath);
-        await git.resetIndex({ fs, dir, filepath });
+      console.log(filepath);
+      await git.resetIndex({ fs, dir, filepath });
 
-        if(filepath.indexOf('api/') !== 0) return nullPromise;
-        worktreeStatus ? await git.add({ fs, dir, filepath }) : await git.remove({ fs, dir, filepath });
-      }
-    )
-
+      if (filepath.indexOf('api/') !== 0) return nullPromise;
+      worktreeStatus
+        ? await git.add({ fs, dir, filepath })
+        : await git.remove({ fs, dir, filepath });
+    });
 
     // console.log(await git.statusMatrix({
     //   fs,
@@ -259,8 +251,7 @@ const gitRun = async (body, strapiInstance) => {
     //     )
     //   )
     // ));
-     
- 
+
     console.log(dir);
 
     let sha = await git.commit({
@@ -270,10 +261,9 @@ const gitRun = async (body, strapiInstance) => {
         name: body.commit.author,
         email: body.commit.email,
       },
-      message: body.commit.message
+      message: body.commit.message,
     });
-    console.log(sha)
-
+    console.log(sha);
 
     let pushResult = await git.push({
       fs,
@@ -282,18 +272,16 @@ const gitRun = async (body, strapiInstance) => {
       remote: body.local.remote,
       ref: body.local.ref,
       onAuth: () => ({ username: body.auth.username, password: body.auth.password }),
-    })
+    });
     console.log(pushResult);
-    strapiInstance.reload();
-
+    process.exit(1);
   } catch (e) {
     console.error(e);
-    strapiInstance.reload();
+    process.exit(1);
     return;
   }
-} 
+};
 
- 
 // async () => {
 //   try{
 //     strapiInstance.log.info(`Custom webhook ready: ${process.env.CUSTOM_WEBHOOK_URL}`);
