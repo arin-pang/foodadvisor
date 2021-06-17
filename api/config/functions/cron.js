@@ -10,16 +10,16 @@
 
 module.exports = {
   '*/1 * * * * *': async () => {
-    const draftRestaurants = await strapi.services.restaurant.find({
-      _publicationState: 'preview',
-      publish_at_lt: new Date(),
-    });
+    // const draftRestaurants = await strapi.services.restaurant.find({
+    //   _publicationState: 'preview',
+    //   publish_at_lt: new Date(),
+    // });
 
-    draftRestaurants.forEach(restaurant => {
-      strapi.services.restaurant.update({id: restaurant.id}, {
-        published_at: new Date(),
-        publish_at: null
-      })
-    });
+    // draftRestaurants.forEach(restaurant => {
+    //   strapi.services.restaurant.update({id: restaurant.id}, {
+    //     published_at: new Date(),
+    //     publish_at: null
+    //   })
+    // });
   }
 };
