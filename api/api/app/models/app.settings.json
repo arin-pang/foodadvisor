@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "apps",
+  "info": {
+    "name": "App"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Token": {
+      "type": "string",
+      "required": true
+    },
+    "Name": {
+      "type": "string",
+      "required": true
+    },
+    "sms_templates": {
+      "via": "app",
+      "collection": "sms-template"
+    },
+    "mail_templates": {
+      "via": "app",
+      "collection": "mail-template"
+    }
+  }
+}

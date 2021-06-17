@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/sms-templates",
+      "handler": "sms-template.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/sms-templates/count",
+      "handler": "sms-template.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/sms-templates/:id",
+      "handler": "sms-template.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/sms-templates",
+      "handler": "sms-template.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/sms-templates/:id",
+      "handler": "sms-template.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/sms-templates/:id",
+      "handler": "sms-template.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

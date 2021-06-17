@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sender_templates",
+  "info": {
+    "name": "SenderTemplate",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "sms_templates": {
+      "collection": "sms-template",
+      "via": "sender_template"
+    },
+    "type": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "mail_templates": {
+      "via": "sender_template",
+      "collection": "mail-template"
+    }
+  }
+}

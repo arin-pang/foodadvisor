@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fis",
+  "info": {
+    "name": "FI"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "customerId": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "Name": {
+      "type": "string",
+      "required": true
+    },
+    "Token": {
+      "type": "string",
+      "required": true
+    },
+    "MetaTag": {
+      "type": "component",
+      "repeatable": true,
+      "component": "fi.meta-tag"
+    },
+    "sms_templates": {
+      "via": "fi",
+      "collection": "sms-template"
+    },
+    "mail_templates": {
+      "via": "fi",
+      "collection": "mail-template"
+    }
+  }
+}

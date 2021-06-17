@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "mail_templates",
+  "info": {
+    "name": "MailTemplate"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "content": {
+      "type": "text",
+      "required": true
+    },
+    "sender_template": {
+      "model": "sender-template",
+      "via": "mail_templates"
+    },
+    "fi": {
+      "model": "fi",
+      "via": "mail_templates"
+    },
+    "app": {
+      "model": "app",
+      "via": "mail_templates"
+    }
+  }
+}
