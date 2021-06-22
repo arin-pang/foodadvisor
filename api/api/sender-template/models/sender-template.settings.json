@@ -12,8 +12,8 @@
   },
   "attributes": {
     "sms_templates": {
-      "collection": "sms-template",
-      "via": "sender_template"
+      "via": "sender_template",
+      "collection": "sms-template"
     },
     "type": {
       "type": "string",

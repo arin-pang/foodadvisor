@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "sms_templates",
   "info": {
-    "name": "SmsTemplate"
+    "name": "SmsTemplate",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -14,13 +15,9 @@
       "type": "string",
       "required": true
     },
-    "content": {
-      "type": "text",
-      "required": true
-    },
     "sender_template": {
-      "via": "sms_templates",
-      "model": "sender-template"
+      "model": "sender-template",
+      "via": "sms_templates"
     },
     "fi": {
       "model": "fi",
@@ -29,6 +26,10 @@
     "app": {
       "model": "app",
       "via": "sms_templates"
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
     }
   }
 }
