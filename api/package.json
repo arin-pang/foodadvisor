@@ -13,7 +13,7 @@
     "seed": "node scripts/seed.js",
     "custom-start": "node custom-start.js",
     "prod": "node prod-start.js",
-    "git-checkout": "node git-checkout.js"  
+    "git-checkout": "node git-checkout.js"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
@@ -22,8 +22,13 @@
     "eslint-plugin-react": "^7.7.0"
   },
   "dependencies": {
+    "@isomorphic-git/cors-proxy": "^2.7.0",
+    "@tinymce/tinymce-react": "^3.12.6",
     "body-scroll-lock": "^3.1.5",
     "fs-extra": "8.1.0",
+    "globby": "^11.0.3",
+    "isomorphic-fetch": "^3.0.0",
+    "isomorphic-git": "^1.8.1",
     "knex": "0.16.3",
     "lodash": "^4.17.5",
     "reactour": "^1.18.0",
@@ -39,10 +44,7 @@
     "strapi-plugin-upload": "3.5.1",
     "strapi-plugin-users-permissions": "3.5.1",
     "strapi-utils": "3.5.1",
-    "unzip-stream": "^0.3.0",
-    "@isomorphic-git/cors-proxy": "^2.7.0",
-    "globby": "^11.0.3",
-    "isomorphic-git": "^1.8.1"
+    "unzip-stream": "^0.3.0"
   },
   "strapi": {
     "uuid": "7b581c0d-89b7-479e-b379-a76ab90b8754"
