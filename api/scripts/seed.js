@@ -15,6 +15,12 @@ const dotEnv = path.resolve('.env');
 
 const sqlite = require('sqlite3').verbose();
 
+require('isomorphic-fetch');
+const TINYMCE_RELEASE_URL = 'https://download.tiny.cloud/tinymce/community/tinymce_5.8.1.zip';
+const publicPath = path.join('public');
+
+
+
 async function dumpSqlite() {
   const db = new sqlite.Database('.tmp/data.db');
   const sql = fse.readFileSync('./data/dump.sql').toString();
@@ -71,6 +77,31 @@ async function seed() {
     console.log(`Failed to create ${dotEnv}`);
   }
 }
+
+
+const tinyMCE = async () => {
+
+  try{
+    const result = await fetch(TINYMCE_RELEASE_URL);
+
+    if (result.status >= 400) {
+      throw new Error("Bad response from server", result);
+    }
+
+    await new Promise(resolve => {
+      result.body.pipe(unzip.Extract({ path: publicPath }))
+      .on('close', resolve);
+    });
+
+  } finally {
+    console.log('finished tinyMCE downloading.');
+  }
+};
+
+tinyMCE().catch(error => {
+  console.error(error);
+  process.exit(1);
+});
 
 seed().catch(error => {
   console.error(error);
