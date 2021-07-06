@@ -1,0 +1,32 @@
+// https://github.com/artf/grapesjs/issues/644
+
+.fa{
+    font-family: 'Font Awesome 5 Free' !important;
+}
+
+.fa-square-o:before {
+    content: ""\f0c8"";
+  }
+  
+  .fa-trash-o:before {
+    content: ""\f1f8"";
+  }
+  
+  .fa-map-o:before {
+    content: ""\f279"";
+  }
+  
+  .fa-youtube-play:before {
+    content: ""\f04b"";
+  }
+  
+  .fa-chevron-right:before {
+    content: ""\f054"";
+  }
+  
+  .fa-chevron-down:before {
+    content: ""\f078"";
+  }
+  .fa-arrows:before {
+      content: ""\f0b2"";
+  }
