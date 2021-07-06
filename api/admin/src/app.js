@@ -7,12 +7,13 @@ import 'sanitize.css/sanitize.css';
 
 // Third party css library needed
 import 'bootstrap/dist/css/bootstrap.css';
-import 'font-awesome/css/font-awesome.min.css';
-import '@fortawesome/fontawesome-free/css/all.css';
-import '@fortawesome/fontawesome-free/js/all.min.js';
+// import 'font-awesome/css/font-awesome.min.css';
+// import '@fortawesome/fontawesome-free/css/all.css';
+// import '@fortawesome/fontawesome-free/js/all.min.js';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Helmet} from 'react-helmet';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 // Strapi provider with the internal APIs
@@ -205,6 +206,14 @@ const render = (messages) => {
         <LanguageProvider messages={messages}>
           <BrowserRouter basename={basename}>
             <App store={store} />
+          <Helmet>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" 
+            integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" 
+            crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/v4-shims.min.css" 
+            integrity="sha512-iaLhEHW3p+ZNgkDKBi4zEfH+aWAMGJ7I7njqD3jKnbN0ux4Gkumu2vjuI71YUov20OIPl3R32v8HO+V+6OgbvQ==" 
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+          </Helmet>
           </BrowserRouter>
         </LanguageProvider>
       </StrapiProvider>
