@@ -57,10 +57,12 @@ $ npx cap open ios
 
 ## Android Code Push
 ```
+cd client??
 appcenter codepush release -a {Owner}/{Android AppName} -d {Stage}  -c android/app/src/main/assets/public -t {Target Version}
 ```
 
 ## iOS Code Push
 ```
+cd client??
 appcenter codepush release -a {Owner}/{iOS AppName} -d {Stage}  -c {NEED_TO_UPDATE} -t {Target Version}
 ```

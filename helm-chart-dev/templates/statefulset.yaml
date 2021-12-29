@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Chart.Name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ include "pod.name" . }}
+    chart: {{ include "pod.chart" . }}
+    release: {{ .Chart.Name }}
+    heritage: {{ .Release.Service }}
+spec: 
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "pod.name" . }}
+      release: {{ .Chart.Name }}
+  serviceName: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "pod.name" . }}
+        release: {{ .Chart.Name }}
+    spec:      
+      containers:
+      # - name: git-controller
+      #   image: 882538723223.dkr.ecr.us-east-1.amazonaws.com/seonguk/demo/git-controller:0.1.0
+      #   imagePullPolicy: Always
+      #   command:
+      #   - "npm"
+      #   - "start"
+        # ports:
+        # - name: controller-http
+        #   containerPort: 13000
+        #   protocol: TCP
+        # volumeMounts:
+        # - mountPath: /usr/src/git-food-advisor
+        #   name: food-advisor
+      - name: {{ .Chart.Name }}
+        image: {{ .Values.deployment.image.repo }}:{{ .Chart.AppVersion }}
+        imagePullPolicy: Always
+        command: 
+        # - "yarn"
+        # - "custom-start"
+        - "/bin/sh"
+        - "-c"
+        - >-
+          yarn git-checkout;
+          echo Git clone complete;
+          cp -rT /usr/src/food-advisor-api-only/node_modules /usr/src/food-advisor/api/node_modules;
+          echo Node modules copy to git directory complete;
+          cp -rT /usr/src/food-advisor-api-only/build /usr/src/food-advisor/api/build;
+          cd /usr/src/food-advisor/api;
+          echo Admin UI copy to git directory complete;
+          yarn seed;
+          yarn custom-start;
+        ports:
+        - name: http
+          containerPort: 1337
+          protocol: TCP
+        envFrom:
+        - secretRef:
+            name: webhook-auth
+        - configMapRef:
+            name: webhook-info
+        resources:
+          limits:
+            cpu: 1
+            memory: 8Gi
+          requests:
+            cpu: 200m
+            memory: 1Gi 
+        # volumeMounts:
+        # - mountPath: /usr/src/git-food-advisor
+        #   name: food-advisor
+      # volumes:
+      # - name: food-advisor
+      #   emptyDir: {}

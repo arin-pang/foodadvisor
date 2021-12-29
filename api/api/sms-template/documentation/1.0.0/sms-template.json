@@ -530,17 +530,13 @@
       "Sms-template": {
         "required": [
           "id",
-          "name",
-          "content"
+          "name"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
           "name": {
-            "type": "string"
-          },
-          "content": {
             "type": "string"
           },
           "sender_template": {
@@ -666,6 +662,9 @@
               }
             }
           },
+          "content": {
+            "type": "object"
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -674,14 +673,10 @@
       },
       "NewSms-template": {
         "required": [
-          "name",
-          "content"
+          "name"
         ],
         "properties": {
           "name": {
-            "type": "string"
-          },
-          "content": {
             "type": "string"
           },
           "sender_template": {
@@ -692,6 +687,9 @@
           },
           "app": {
             "type": "string"
+          },
+          "content": {
+            "type": "object"
           },
           "published_at": {
             "type": "string",

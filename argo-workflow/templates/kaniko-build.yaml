@@ -1,0 +1,36 @@
+# https://5pi.de/2020/05/01/kubernetes-native-ci-with-argo/
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: ci-k8s-webhook-handler-
+spec:
+  entrypoint: build
+  volumes:
+    - name: docker-config
+      configMap:
+        name: docker-config
+  templates:
+    - name: build
+      inputs:
+        parameters:
+          - name: repository
+          - name: branch
+          - name: image_name
+          - name: image_tag
+          - name: node_image_repo
+          - name: target_path
+        artifacts:
+          - name: source
+            path: "/src"
+            git:
+              repo: "{{inputs.parameters.repository}}"
+              revision: "{{inputs.parameters.branch}}"
+      container:
+        image: gcr.io/kaniko-project/executor
+        args:
+          - "--build-arg=NODE_IMAGE={{inputs.parameters.node_image_repo}}"
+          - "--context=/src/{{inputs.parameters.target_path}}"
+          - "--destination={{inputs.parameters.image_name}}:{{inputs.parameters.image_tag}}"
+        volumeMounts:
+          - name: docker-config
+            mountPath: /kaniko/.docker/

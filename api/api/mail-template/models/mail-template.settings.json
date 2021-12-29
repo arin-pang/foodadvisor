@@ -28,8 +28,9 @@
       "via": "mail_templates"
     },
     "content": {
-      "type": "richtext",
-      "required": true
+      "type": "component",
+      "repeatable": false,
+      "component": "html-editor.content"
     }
   }
 }

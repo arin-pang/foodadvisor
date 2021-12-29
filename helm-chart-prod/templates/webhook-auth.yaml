@@ -1,0 +1,9 @@
+apiVersion: v1
+stringData:
+  CUSTOM_WEBHOOK_AUTH_USERNAME: "arin-pang"
+  CUSTOM_WEBHOOK_AUTH_PASSWORD: "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"
+kind: Secret
+metadata:
+  name: webhook-auth
+  namespace: {{ .Values.namespace }}
+type: Opaque

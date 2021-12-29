@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_html_editor_contents",
+  "info": {
+    "name": "content",
+    "icon": "edit"
+  },
+  "options": {},
+  "attributes": {
+    "html": {
+      "type": "text",
+      "private": true
+    },
+    "css": {
+      "type": "text",
+      "private": true
+    }
+  }
+}

@@ -1,0 +1,110 @@
+#Referenced from https://flavio.castelli.me/2020/10/05/build-multi-architecture-container-images-using-argo-workflow/
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: simple-build-
+spec:
+  entrypoint: buildah
+  templates:
+  # - name: buildah
+  #   inputs:
+  #     parameters:
+  #     - name: repository
+  #     - name: branch
+  #     - name: image_name
+  #     - name: image_tag
+  #     - name: target_path
+  #   metadata:
+  #     annotations:
+  #       container.apparmor.security.beta.kubernetes.io/main: localhost/containerized_buildah
+  #   nodeSelector:
+  #     kubernetes.io/arch: "amd64"
+  #   script:
+  #     image: registry.opensuse.org/home/flavio_castelli/containers/containers/buildahimage:latest
+  #     command: [bash]
+  #     # 882538723223.dkr.ecr.us-east-1.amazonaws.com/seonguk/demo/food-advisor
+  #     # 0.0.1-alpine3.1
+  #     source: |
+  #       set -xe
+  #       cd /code/
+  #       # needed to workaround protected_symlink - we can't just cd into /code/checkout
+  #       cd $(readlink checkout)
+  #       buildah bud -t {{inputs.parameters.image_name}}:{{inputs.parameters.image_tag}} {{input.parameters.target_path}}
+  #       buildah push {{inputs.parameters.image_name}}:{{inputs.parameters.image_tag}}
+  #       echo Image built and pushed to remote registry
+  #     volumeMounts:
+  #       - name: code
+  #         mountPath: /code
+  #       - name: certs
+  #         mountPath: /certs
+  #         readOnly: true
+  #     resources:
+  #       limits:
+  #         github.com/fuse: 1
+  #   initContainers:
+  #   - name: git-sync
+  #     image: k8s.gcr.io/git-sync/git-sync:v3.1.7
+  #     args: [
+  #       "--one-time",
+  #       "--depth", "1",
+  #       "--dest", "checkout",
+  #       "--repo", "{{inputs.parameters.repository}}", 
+  #       "--branch", "{{inputs.parameters.branch}}"]
+  #       # https://git.internal.ondotsystems.com/scm/~seonguk.cho/foodadvisor.git
+  #       # push-test
+  #     volumeMounts:
+  #       - name: code
+  #         mountPath: /tmp/git
+  #   volumes:
+  #   - name: code
+  #     emptyDir:
+  #       medium: Memory
+  #   - name: certs
+  #     secret:
+  #       secretName: registry-cert
+  - name: buildah
+    inputs:
+      parameters:
+        - name: repository
+        - name: branch
+        - name: image_name
+        - name: image_tag
+        - name: target_path
+    outputs: {}
+    nodeSelector:
+      kubernetes.io/arch: amd64
+    metadata:
+      annotations:
+        # container.apparmor.security.beta.kubernetes.io/main: localhost/containerized_buildah
+    script:
+      name: ''
+      image: >-
+        registry.opensuse.org/home/flavio_castelli/containers/containers/buildahimage:latest
+      command:
+        - bash
+      resources: {}
+      volumeMounts:
+        - name: code
+          mountPath: /code
+      source: "set -xe \n cd /code/ \n # needed to workaround protected_symlink - we can't just cd into /code/checkout \n cd $(readlink checkout)  \n  buildah login -u arinpang -p 4299923c-197e-4f13-9b25-2ba0f68a22a6 docker.io \n buildah bud -t {{inputs.parameters.image_name}}:{{inputs.parameters.image_tag}} {{inputs.parameters.target_path}} \n   buildah push {{inputs.parameters.image_name}}:{{inputs.parameters.image_tag}} \n echo Image built and pushed to remote registry"
+    volumes:
+      - name: code
+        emptyDir:
+          medium: Memory
+    initContainers:
+      - name: git-sync
+        image: 'k8s.gcr.io/git-sync/git-sync:v3.1.7'
+        args:
+          - '--one-time'
+          - '--depth'
+          - '1'
+          - '--dest'
+          - checkout
+          - '--repo'
+          - '{{inputs.parameters.repository}}'
+          - '--branch'
+          - '{{inputs.parameters.branch}}'
+        resources: {}
+        volumeMounts:
+          - name: code
+            mountPath: /tmp/git

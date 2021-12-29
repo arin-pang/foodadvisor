@@ -535,17 +535,13 @@
             "items": {
               "required": [
                 "id",
-                "name",
-                "content"
+                "name"
               ],
               "properties": {
                 "id": {
                   "type": "string"
                 },
                 "name": {
-                  "type": "string"
-                },
-                "content": {
                   "type": "string"
                 },
                 "sender_template": {
@@ -556,6 +552,9 @@
                 },
                 "app": {
                   "type": "string"
+                },
+                "content": {
+                  "type": "object"
                 },
                 "published_at": {
                   "type": "string"
@@ -574,17 +573,13 @@
             "items": {
               "required": [
                 "id",
-                "name",
-                "content"
+                "name"
               ],
               "properties": {
                 "id": {
                   "type": "string"
                 },
                 "name": {
-                  "type": "string"
-                },
-                "content": {
                   "type": "string"
                 },
                 "sender_template": {
@@ -595,6 +590,9 @@
                 },
                 "app": {
                   "type": "string"
+                },
+                "content": {
+                  "type": "component"
                 },
                 "published_at": {
                   "type": "string"

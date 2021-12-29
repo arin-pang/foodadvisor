@@ -28,9 +28,9 @@ const Editor = ({ onChange, name, value }) => {
             toolbar_mode: 'wrap',
             plugins: [
               'advlist autolink lists link image charmap print preview anchor',
-              'searchreplace visualblocks code fullscreen',
-              'insertdatetime media table paste code help wordcount',
-              'media codesample fullscreen',
+              'searchreplace visualblocks codemirror fullscreen',
+              'insertdatetime media table paste help wordcount',
+              'media codesample fullscreen fullpage',
               'hr visualchars imagetools emoticons'
             ],
             toolbar:
@@ -39,7 +39,25 @@ const Editor = ({ onChange, name, value }) => {
               alignleft aligncenter alignright alignjustify | \
               outdent indent | numlist bullist | \
               table link anchor | image media codesample charmap emoticons | \
-              fullscreen code'
+              fullscreen code',
+              codemirror: {
+                indentOnInit: true, // Whether or not to indent code on init.
+                fullscreen: false,   // Default setting is false
+                path: 'codemirror-4.8', // Path to CodeMirror distribution
+                config: {           // CodeMirror config object
+                   mode: 'mustache',
+                   lineNumbers: true
+                },
+                width: 800,         // Default value is 800
+                height: 600,        // Default value is 550
+                saveCursorPosition: true,    // Insert caret marker
+                jsFiles: [          // Additional JS files to load
+                  //  'mode/clike/clike.js',
+                  //  'mode/php/php.js',
+                   'mode/xml/xml.js',
+                   'mode/custom-overlay/overlay.js'
+                ]
+              }            
           }}
           onEditorChange={(content, editor) => {
             onChange({ target: { name, value: content } });

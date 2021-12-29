@@ -13,7 +13,7 @@ import { codePush, InstallMode } from 'capacitor-codepush';
 
 
 function App() {
-  codePush.sync({ updateDialog: true, installMode: InstallMode.IMMEDIATE });
+  // codePush.sync({ updateDialog: true, installMode: InstallMode.IMMEDIATE });
 
   return (
     <div>

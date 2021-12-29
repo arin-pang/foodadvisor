@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "06/17/2021 6:22:19 AM"
+    "x-generation-date": "07/01/2021 6:54:25 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -4761,17 +4761,13 @@
             "items": {
               "required": [
                 "id",
-                "name",
-                "content"
+                "name"
               ],
               "properties": {
                 "id": {
                   "type": "string"
                 },
                 "name": {
-                  "type": "string"
-                },
-                "content": {
                   "type": "string"
                 },
                 "sender_template": {
@@ -4782,6 +4778,9 @@
                 },
                 "app": {
                   "type": "string"
+                },
+                "content": {
+                  "type": "object"
                 },
                 "published_at": {
                   "type": "string"
@@ -4800,17 +4799,13 @@
             "items": {
               "required": [
                 "id",
-                "name",
-                "content"
+                "name"
               ],
               "properties": {
                 "id": {
                   "type": "string"
                 },
                 "name": {
-                  "type": "string"
-                },
-                "content": {
                   "type": "string"
                 },
                 "sender_template": {
@@ -4821,6 +4816,9 @@
                 },
                 "app": {
                   "type": "string"
+                },
+                "content": {
+                  "type": "component"
                 },
                 "published_at": {
                   "type": "string"
@@ -4926,17 +4924,13 @@
             "items": {
               "required": [
                 "id",
-                "name",
-                "content"
+                "name"
               ],
               "properties": {
                 "id": {
                   "type": "string"
                 },
                 "name": {
-                  "type": "string"
-                },
-                "content": {
                   "type": "string"
                 },
                 "sender_template": {
@@ -4947,6 +4941,9 @@
                 },
                 "app": {
                   "type": "string"
+                },
+                "content": {
+                  "type": "object"
                 },
                 "published_at": {
                   "type": "string"
@@ -4965,17 +4962,13 @@
             "items": {
               "required": [
                 "id",
-                "name",
-                "content"
+                "name"
               ],
               "properties": {
                 "id": {
                   "type": "string"
                 },
                 "name": {
-                  "type": "string"
-                },
-                "content": {
                   "type": "string"
                 },
                 "sender_template": {
@@ -4986,6 +4979,9 @@
                 },
                 "app": {
                   "type": "string"
+                },
+                "content": {
+                  "type": "component"
                 },
                 "published_at": {
                   "type": "string"
@@ -5073,17 +5069,13 @@
       "Mail-template": {
         "required": [
           "id",
-          "name",
-          "content"
+          "name"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
           "name": {
-            "type": "string"
-          },
-          "content": {
             "type": "string"
           },
           "sender_template": {
@@ -5209,6 +5201,23 @@
               }
             }
           },
+          "content": {
+            "type": "object",
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "html": {
+                "type": "string"
+              },
+              "css": {
+                "type": "string"
+              }
+            }
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -5217,14 +5226,10 @@
       },
       "NewMail-template": {
         "required": [
-          "name",
-          "content"
+          "name"
         ],
         "properties": {
           "name": {
-            "type": "string"
-          },
-          "content": {
             "type": "string"
           },
           "sender_template": {
@@ -5235,6 +5240,23 @@
           },
           "app": {
             "type": "string"
+          },
+          "content": {
+            "type": "object",
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "html": {
+                "type": "string"
+              },
+              "css": {
+                "type": "string"
+              }
+            }
           },
           "published_at": {
             "type": "string",
@@ -5262,17 +5284,13 @@
             "items": {
               "required": [
                 "id",
-                "name",
-                "content"
+                "name"
               ],
               "properties": {
                 "id": {
                   "type": "string"
                 },
                 "name": {
-                  "type": "string"
-                },
-                "content": {
                   "type": "string"
                 },
                 "sender_template": {
@@ -5283,6 +5301,9 @@
                 },
                 "app": {
                   "type": "string"
+                },
+                "content": {
+                  "type": "object"
                 },
                 "published_at": {
                   "type": "string"
@@ -5307,17 +5328,13 @@
             "items": {
               "required": [
                 "id",
-                "name",
-                "content"
+                "name"
               ],
               "properties": {
                 "id": {
                   "type": "string"
                 },
                 "name": {
-                  "type": "string"
-                },
-                "content": {
                   "type": "string"
                 },
                 "sender_template": {
@@ -5328,6 +5345,9 @@
                 },
                 "app": {
                   "type": "string"
+                },
+                "content": {
+                  "type": "component"
                 },
                 "published_at": {
                   "type": "string"
@@ -5385,17 +5405,13 @@
       "Sms-template": {
         "required": [
           "id",
-          "name",
-          "content"
+          "name"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
           "name": {
-            "type": "string"
-          },
-          "content": {
             "type": "string"
           },
           "sender_template": {
@@ -5521,6 +5537,9 @@
               }
             }
           },
+          "content": {
+            "type": "object"
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -5529,14 +5548,10 @@
       },
       "NewSms-template": {
         "required": [
-          "name",
-          "content"
+          "name"
         ],
         "properties": {
           "name": {
-            "type": "string"
-          },
-          "content": {
             "type": "string"
           },
           "sender_template": {
@@ -5547,6 +5562,9 @@
           },
           "app": {
             "type": "string"
+          },
+          "content": {
+            "type": "object"
           },
           "published_at": {
             "type": "string",

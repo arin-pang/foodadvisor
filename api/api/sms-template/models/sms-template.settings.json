@@ -28,8 +28,7 @@
       "via": "sms_templates"
     },
     "content": {
-      "type": "richtext",
-      "required": true
+      "type": "json"
     }
   }
 }

@@ -62,7 +62,7 @@ async function seed() {
   }
 
   try {
-    await fse.remove(dataPath);
+    // await fse.remove(dataPath);
   } catch (err) {
     console.log(`Failed to remove ${dataPath}`);
   }
