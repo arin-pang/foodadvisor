@@ -49,6 +49,14 @@
       "plugin": "users-permissions",
       "configurable": false
     },
+    "reviews": {
+      "collection": "review",
+      "via": "author"
+    },
+    "likes": {
+      "collection": "like",
+      "via": "author"
+    },
     "picture": {
       "model": "file",
       "via": "related",
