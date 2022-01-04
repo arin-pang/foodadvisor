@@ -22,7 +22,7 @@ global:
 
 deployment:
   image:
-    repo: 882538723223.dkr.ecr.us-east-1.amazonaws.com/seonguk/demo/food-advisor
+    repo: arinpang/foodadvisor
 
 # service:
 #   type: ClusterIP
