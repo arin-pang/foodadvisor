@@ -16,6 +16,5 @@ spec:
   # - port: 13000
   #   name: controller-http
   selector:
-    statefulset.kubernetes.io/pod-name: {{ .Chart.Name }}-0  
     app: {{ include "pod.name" . }}
     release: {{ .Chart.Name }}
