@@ -5,6 +5,7 @@
 #replicaCount: 1
 name: food-advisor-web-dev
 namespace: food-advisor
+backendUrl: https://cm-dev.ondot-kr.gq
 
 ## Pass the required profile maps to the spring profile environment variable
 global:

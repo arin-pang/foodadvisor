@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Chart.Name }}
+  name: {{ .Values.Name }}
   namespace: {{ .Values.global.namespace }}
   labels:
     app: {{ include "pod.name" . }}
     chart: {{ include "pod.chart" . }}
-    release: {{ .Chart.Name }}
+    release: {{ .Values.name }}
     heritage: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: {{ include "pod.name" . }}
-      release: {{ .Chart.Name }}
+      release: {{ .Values.name }}
   template:
     metadata:   
       labels:
         app: {{ include "pod.name" . }}
-        release: {{ .Chart.Name }}
+        release: {{ .Values.name }}
     spec:
       containers:
-      - name: {{ .Chart.Name }}
+      - name: {{ .Values.name }}
         image: {{ .Values.global.repoPrefix }}{{ .Values.global.repoSpace }}{{ .Values.deployment.image.repo }}:{{ .Chart.AppVersion }}
         imagePullPolicy: {{ .Values.global.pullPolicy }}
         # command: 
@@ -36,5 +36,9 @@ spec:
             memory: 8Gi
           requests:
             cpu: 200m
-            memory: 1Gi 
+            memory: 1Gi
+        env:
+        - name: REACT_APP_BACKEND_URL
+          value: {{ .Values.backendUrl }}
+
 
