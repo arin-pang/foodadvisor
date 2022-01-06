@@ -9,7 +9,7 @@ metadata:
     release: {{ .Chart.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 80
     name: http
