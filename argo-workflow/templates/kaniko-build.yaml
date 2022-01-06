@@ -9,6 +9,12 @@ spec:
     - name: docker-config
       configMap:
         name: docker-config
+    # - name: kaniko-secret
+    #   secret:
+    #     secretName: dockerhub-registry
+    #     items:
+    #       - key: .dockerconfigjson
+    #         path: config.json
   templates:
     - name: build
       inputs:
@@ -27,10 +33,27 @@ spec:
               revision: "{{inputs.parameters.branch}}"
       container:
         image: gcr.io/kaniko-project/executor
+        command: ["/kaniko/executor"]
         args:
           - "--build-arg=NODE_IMAGE={{inputs.parameters.node_image_repo}}"
           - "--context=/src/{{inputs.parameters.target_path}}"
           - "--destination={{inputs.parameters.image_name}}:{{inputs.parameters.image_tag}}"
-        volumeMounts:
-          - name: docker-config
-            mountPath: /kaniko/.docker/
+      volumeMounts:
+        - name: docker-config
+          mountPath: /kaniko/.docker/
+        # - name: kaniko-secret
+        #   mountPath: /kaniko/.docker
+  arguments:
+    parameters:
+      - name: repository
+        value: 'https://github.com/arin-pang/foodadvisor.git'
+      - name: branch
+        value: cardhub-101
+      - name: image_name
+        value: registry.ondot-kr.gq/foodadvisor
+      - name: image_tag
+        value: 0.0.1
+      - name: target_path
+        value: api
+      - name: node_image_repo
+        value: node:erbium-alpine
