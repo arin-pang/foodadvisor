@@ -9,5 +9,5 @@ data:
   CUSTOM_WEBHOOK_GIT_EMAIL: "seonguk.cho@ondotsystems.com"
   CUSTOM_WEBHOOK_GIT_MESSAGE: "[Automation] Changed from Strapi Admin UI"
   CUSTOM_WEBHOOK_REPO_REMOTE: "origin"
-  CUSTOM_WEBHOOK_REPO_REF: "push-test"
+  CUSTOM_WEBHOOK_REPO_REF: "cardhub-101"
   CUSTOM_WEBHOOK_REPO_URL: https://github.com/arin-pang/foodadvisor.git

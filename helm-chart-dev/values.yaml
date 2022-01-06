@@ -22,7 +22,7 @@ global:
 
 deployment:
   image:
-    repo: arinpang/foodadvisor
+    repo: registry.ondot-kr.gq/foodadvisor
 
 # service:
 #   type: ClusterIP
