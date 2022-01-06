@@ -33,6 +33,7 @@
     "prebuild": "rm -rf www || rmdir /s /q www",
     "build": "react-scripts build",
     "postbuild": "mv build www || move build www",
+    "docker-build": "docker build . --tag registry.ondot-kr.gq/foodadvisor-web-dev:0.0.1",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "generate": "plop --plopfile internals/generators/index.js",
